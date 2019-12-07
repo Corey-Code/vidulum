@@ -152,3 +152,61 @@ CWalletTx GetValidSpend(ZCJoinSplit& params,
     CWalletTx wtx {NULL, tx};
     return wtx;
 }
+<<<<<<< HEAD
+=======
+
+// Sapling
+const Consensus::Params& RegtestActivateSapling() {
+    SelectParams(CBaseChainParams::REGTEST);
+    UpdateNetworkUpgradeParameters(Consensus::UPGRADE_OVERWINTER, Consensus::NetworkUpgrade::ALWAYS_ACTIVE);
+    UpdateNetworkUpgradeParameters(Consensus::UPGRADE_SAPLING, Consensus::NetworkUpgrade::ALWAYS_ACTIVE);
+    return Params().GetConsensus();
+}
+
+void RegtestDeactivateSapling() {
+    UpdateNetworkUpgradeParameters(Consensus::UPGRADE_SAPLING, Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT);
+    UpdateNetworkUpgradeParameters(Consensus::UPGRADE_OVERWINTER, Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT);
+}
+
+libzcash::SaplingExtendedSpendingKey GetTestMasterSaplingSpendingKey() {
+    std::vector<unsigned char, secure_allocator<unsigned char>> rawSeed(32);
+    HDSeed seed(rawSeed);
+    return libzcash::SaplingExtendedSpendingKey::Master(seed);
+}
+
+CKey AddTestCKeyToKeyStore(CBasicKeyStore& keyStore) {
+    CKey tsk = DecodeSecret(T_SECRET_REGTEST);
+    keyStore.AddKey(tsk);
+    return tsk;
+}
+
+TestSaplingNote GetTestSaplingNote(const libzcash::SaplingPaymentAddress& pa, CAmount value) {
+    // Generate dummy Sapling note
+    libzcash::SaplingNote note(pa, value);
+    uint256 cm = note.cm().get();
+    SaplingMerkleTree tree;
+    tree.append(cm);
+    return { note, tree };
+}
+
+CWalletTx GetValidSaplingReceive(const Consensus::Params& consensusParams,
+                                 CBasicKeyStore& keyStore,
+                                 const libzcash::SaplingExtendedSpendingKey &sk,
+                                 CAmount value) {
+    // From taddr
+    CKey tsk = AddTestCKeyToKeyStore(keyStore);
+    auto scriptPubKey = GetScriptForDestination(tsk.GetPubKey().GetID());
+    // To zaddr
+    auto fvk = sk.expsk.full_viewing_key();
+    auto pa = sk.DefaultAddress();
+
+    auto builder = TransactionBuilder(consensusParams, 1, expiryDelta, &keyStore);
+    builder.SetFee(0);
+    builder.AddTransparentInput(COutPoint(), scriptPubKey, value);
+    builder.AddSaplingOutput(fvk.ovk, pa, value, {});
+
+    CTransaction tx = builder.Build().GetTxOrThrow();
+    CWalletTx wtx {NULL, tx};
+    return wtx;
+}
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6

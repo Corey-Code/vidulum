@@ -567,9 +567,22 @@ public:
 
     bool IsNormalPaymentScript() const;
 
+<<<<<<< HEAD
 	bool IsPayToPublicKeyHash() const;
 
     bool IsPayToScriptHash() const;
+=======
+    // insightexplorer, there may be more script types in the future
+    enum ScriptType : int {
+        UNKNOWN = 0,
+        P2PKH = 1,
+        P2SH = 2,
+    };
+    bool IsPayToPublicKeyHash() const;
+    bool IsPayToScriptHash() const;
+    ScriptType GetType() const;
+    uint160 AddressHash() const;
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
     /** Called by IsStandardTx and P2SH/BIP62 VerifyScript (which makes it consensus-critical). */
     bool IsPushOnly() const;

@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 import re, sys, os, os.path
+=======
+# -*- coding: utf-8 -*-
+
+import re, os, os.path
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 import subprocess
 import argparse
 from itertools import islice
@@ -20,9 +26,25 @@ RELEASE_NOTES_CHANGELOG_HEADING = [
 ]
 
 author_aliases = {
+<<<<<<< HEAD
     'Simon': 'Simon Liu',
     'bitcartel': 'Simon Liu',
     'EthanHeilman': 'Ethan Heilman',
+=======
+    'Ariel': 'Ariel Gabizon',
+    'arielgabizon': 'Ariel Gabizon',
+    'bitcartel': 'Simon Liu',
+    'Charlie OKeefe': 'Charlie O\'Keefe',
+    'Duke Leto': 'Jonathan \"Duke\" Leto',
+    'Eirik0': 'Eirik Ogilvie-Wigley',
+    'EthanHeilman': 'Ethan Heilman',
+    'MarcoFalke': 'Marco Falke',
+    'mdr0id': 'Marshall Gaucher',
+    'paveljanik': 'Pavel Janík',
+    'Simon': 'Simon Liu',
+    'str4d': 'Jack Grigg',
+    'zebambam': 'Benjamin Winston'
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 }
 
 def apply_author_aliases(name):

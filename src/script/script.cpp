@@ -273,6 +273,7 @@ bool CScript::IsPushOnly() const
     return true;
 }
 
+<<<<<<< HEAD
 std::string CScript::ToString() const
 {
     std::string str;
@@ -292,6 +293,33 @@ std::string CScript::ToString() const
             str += ValueString(vch);
         else
             str += GetOpName(opcode);
+=======
+// insightexplorer
+CScript::ScriptType CScript::GetType() const
+{
+    if (this->IsPayToPublicKeyHash())
+        return CScript::P2PKH;
+    if (this->IsPayToScriptHash())
+        return CScript::P2SH;
+    // We don't know this script
+    return CScript::UNKNOWN;
+}
+
+// insightexplorer
+uint160 CScript::AddressHash() const
+{
+    // where the address bytes begin depends on the script type
+    int start;
+    if (this->IsPayToPublicKeyHash())
+        start = 3;
+    else if (this->IsPayToScriptHash())
+        start = 2;
+    else {
+        // unknown script type; return zeros
+        vector<unsigned char> hashBytes;
+        hashBytes.resize(20);
+        return uint160(hashBytes);
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     }
     return str;
 }

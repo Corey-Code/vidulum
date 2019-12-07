@@ -79,7 +79,16 @@ public:
         consensus.nMajorityEnforceBlockUpgrade = 750;
         consensus.nMajorityRejectBlockOutdated = 950;
         consensus.nMajorityWindow = 4000;
+<<<<<<< HEAD
         consensus.powLimit = uint256S("0007ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+=======
+
+        const size_t N = 192, K = 7;
+        BOOST_STATIC_ASSERT(equihash_parameters_acceptable(N, K));
+        consensus.nEquihashN = N;
+        consensus.nEquihashK = K;
+        consensus.powLimit = uint256S("0AB1Efffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
         consensus.nPowAveragingWindow = 17;
         consensus.nMasternodePaymentsStartBlock = 105;
         //consensus.nMasternodePaymentsIncreasePeriod = 43200; // 1 month
@@ -119,6 +128,7 @@ public:
         nDefaultPort = 7676;
         nMaxTipAge = 24 * 60 * 60;
         nPruneAfterHeight = 100000;
+<<<<<<< HEAD
         newTimeRule = 246600;
         eh_epoch_1 = eh200_9;
         eh_epoch_2 = eh192_7;
@@ -126,6 +136,15 @@ public:
         eh_epoch_2_startblock = 100000;
         // eh_epoch_1_endtime = 1546745505;
         // eh_epoch_2_starttime = 1546741005;
+=======
+
+        //Start Zeronode
+        nZeronodeCountDrift = 0;
+        strSporkKey = "0477f4d5094e70c26bf998ba0d0e06af8c31b399c5b794895da2158dac086260353c50eaf477e7c5ec6b87349fc63bacdd56f0ffe4dcc112dca71d8335cd1ad2c1";
+        strZeronodeDummyAddress = "t1TLNF3seMZennWmmxik8r1PVEKj5zudgRw";
+        nBudget_Fee_Confirmations = 6; // Number of confirmations for the finalization fee
+        //End Zeronode
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
         nMasternodeCountDrift = 0;
 
@@ -216,7 +235,16 @@ public:
         consensus.nMajorityEnforceBlockUpgrade = 51;
         consensus.nMajorityRejectBlockOutdated = 75;
         consensus.nMajorityWindow = 400;
+<<<<<<< HEAD
         consensus.powLimit = uint256S("07ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+=======
+        
+        const size_t N = 192, K = 7;
+        BOOST_STATIC_ASSERT(equihash_parameters_acceptable(N, K));
+        consensus.nEquihashN = N;
+        consensus.nEquihashK = K;
+        consensus.powLimit = uint256S("0effffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
         consensus.nPowAveragingWindow = 17;
         assert(maxUint/UintToArith256(consensus.powLimit) >= consensus.nPowAveragingWindow);
         consensus.nPowMaxAdjustDown = 32; // 32% adjustment down
@@ -252,6 +280,7 @@ public:
         nDefaultPort = 7677;
         nMaxTipAge = 24 * 60 * 60;
         nPruneAfterHeight = 1000;
+<<<<<<< HEAD
         eh_epoch_1 = eh200_9;
         eh_epoch_2 = eh192_7;
         // eh_epoch_1_endtime = 1539727200;
@@ -269,6 +298,30 @@ public:
 		consensus.hashGenesisBlock = genesis.GetHash();
 
         assert(consensus.hashGenesisBlock == uint256S("0x05a8853de8a16bed21cb4c60472d6642dee066b3d914e37aba7f7b76ef87002c"));
+=======
+
+        //Start Zeronode
+        nZeronodeCountDrift = 0;
+        strSporkKey = "04f249a25f6708898afead4e01fc726269ffbdcbbecad7f675ed2470f68571e57ac32bde7111781e476b0c0256cc5e7b71cc5fd56fcffbfb1ead0cb6fe89d91303";
+        strZeronodeDummyAddress = "tmWuQ8Yh3pHDa8MingmN8ECPRBxo2n8uZRs";
+        nBudget_Fee_Confirmations = 6; // Number of confirmations for the finalization fee
+        //End Zeronode
+
+        genesis = CreateGenesisBlock(
+            1542244402,
+            uint256S("0000000000000000000000000000000000000000000000000000000000000007"),
+            ParseHex("0112369e83d7c1667babefb9901f494ca75088c6e3cd4231a1099789c7bc2125da167d562261ec5d856c45614a28578a378a118ef63d77c1d5bf8b159d26d2649f21d31d5cdbc31ac2317c31072ade90a0e557e4f6b5f45718c997080ea65d63a7d90cc50160bf20d536abbac91af665d11e1f69c068556e5094f0edaa1bf7ac44ce072456237a18cae937477fc3590ecb0babff50511712877c99a4d29ed4d7d99d32f7cc221c67f541df6eec718f20dc90aadec4908541dc09be52f135f244b55df32031fb00b808916c99ee23072fade4657287a9b6168178c30e746de5bff7143f955b534179d1bf1d6724a1a42845f7ff389322a4c416913cf95e6ee36252df00d803347433815d58eced61974300aa734d1fc533cb9ce09a0ffa83f405d56937ac283a70c7b5804c260e43c349d2a30ebb3e58de7e033d0a7290da6390bbf9f56dd53c1d7f3886471214c50a66fb394145ee891ecb71cc7bc3f44022609fcc97ca0e58755d89d513b9e8c5ed9b393b6655f17ba1371f6bb1ff3651cb1737f0cc18d89d5d940ab2fd3f9dcd8ca6"),
+            0x200A1FA<<4, 4, 0);
+        consensus.hashGenesisBlock = genesis.GetHash();
+
+        //LogPrintf("TESTNET\n");
+        //LogPrintf("consensus.hashGenesisBlock=%s\n", consensus.hashGenesisBlock.GetHex());
+        //LogPrintf("genesis.hashMerkleRoot=%s\n", genesis.hashMerkleRoot.GetHex());
+        //LogPrintf("genesis.nTime=%is\n", genesis.nTime);
+
+        assert(consensus.hashGenesisBlock == uint256S("09c59b03b8d80af0d0e05737fd3ccbd29cfa389fd17395ae5c99143c9e3ad434"));
+        assert(genesis.hashMerkleRoot == uint256S("094ef7f8882f3ec07edf16aa707c9511562b0e6211a8ed9db36332134bfe5357"));
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -341,6 +394,10 @@ public:
         consensus.nMajorityEnforceBlockUpgrade = 750;
         consensus.nMajorityRejectBlockOutdated = 950;
         consensus.nMajorityWindow = 1000;
+        const size_t N = 48, K = 5;
+        BOOST_STATIC_ASSERT(equihash_parameters_acceptable(N, K));
+        consensus.nEquihashN = N;
+        consensus.nEquihashK = K;
         consensus.powLimit = uint256S("0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f");
         consensus.nPowAveragingWindow = 17;
         assert(maxUint/UintToArith256(consensus.powLimit) >= consensus.nPowAveragingWindow);
@@ -374,6 +431,7 @@ public:
         nDefaultPort = 7678;
         nMaxTipAge = 24 * 60 * 60;
         nPruneAfterHeight = 1000;
+<<<<<<< HEAD
         eh_epoch_1 = eh48_5;
         eh_epoch_2 = eh48_5;
         eh_epoch_1_endblock = 1;
@@ -383,14 +441,28 @@ public:
             1539727200,
             uint256S("0000000000000000000000000000000000000000000000000000000000000003"),
             ParseHex("04829bd8444aa91d19163c0a94c3f529eafe0adb8e48275d9adbb325b8e35623d5c5f3d9"),
+=======
+
+        //Start Zeronode
+        nZeronodeCountDrift = 0;
+        strSporkKey = "045da9271f5d9df405d9e83c7c7e62e9c831cc85c51ffaa6b515c4f9c845dec4bf256460003f26ba9d394a17cb57e6759fe231eca75b801c20bccd19cbe4b7942d";
+        strZeronodeDummyAddress = "s1eQnJdoWDhKhxDrX8ev3aFjb1J6ZwXCxUT";
+        nBudget_Fee_Confirmations = 6; // Number of confirmations for the finalization fee
+        //End Zeronode
+
+        genesis = CreateGenesisBlock(
+            1531037936,
+            uint256S("0000000000000000000000000000000000000000000000000000000000000001"),
+            ParseHex("09354815a3ad96efa233c6edbff6d3a245490c12d71971cf2969791411cd11132fcec3e8"),
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
             0x200f0f0f, 4, 0);
 			
         consensus.hashGenesisBlock = genesis.GetHash();
 
         //assert(consensus.hashGenesisBlock == uint256S("0x0602c7cbfe694a573df593aa1b57077fa5b76bb79fa1a1fab55c7e480d476559"));
 
-        vFixedSeeds.clear(); //! Regtest mode doesn't have any fixed seeds.
-        vSeeds.clear();  //! Regtest mode doesn't have any DNS seeds.
+        vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
+        vSeeds.clear();      //!< Regtest mode doesn't have any DNS seeds.
 
         fMiningRequiresPeers = false;
         fDefaultConsistencyChecks = true;

@@ -19,12 +19,22 @@ testScripts=(
     'wallet.py'
     'wallet_nullifiers.py'
     'wallet_1941.py'
+<<<<<<< HEAD
+=======
+    'wallet_addresses.py'
+    'wallet_sapling.py'
+    'wallet_listnotes.py'
+    'mergetoaddress_sprout.py'
+    'mergetoaddress_sapling.py'
+    'mergetoaddress_mixednotes.py'
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     'listtransactions.py'
     'mempool_resurrect_test.py'
     'txn_doublespend.py'
     'txn_doublespend.py --mineblock'
     'getchaintips.py'
     'rawtransactions.py'
+    'getrawtransaction_insight.py'
     'rest.py'
     'mempool_spendcoinbase.py'
     'mempool_coinbase_spends.py'

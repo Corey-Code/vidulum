@@ -4,6 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "amqppublishnotifier.h"
+#include "chainparams.h"
 #include "main.h"
 #include "util.h"
 
@@ -153,11 +154,12 @@ bool AMQPPublishRawBlockNotifier::NotifyBlock(const CBlockIndex *pindex)
 {
     LogPrint("amqp", "amqp: Publish rawblock %s\n", pindex->GetBlockHash().GetHex());
 
+    const Consensus::Params& consensusParams = Params().GetConsensus();
     CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
     {
         LOCK(cs_main);
         CBlock block;
-        if(!ReadBlockFromDisk(block, pindex)) {
+        if(!ReadBlockFromDisk(block, pindex, consensusParams)) {
             LogPrint("amqp", "amqp: Can't read block from disk");
             return false;
         }

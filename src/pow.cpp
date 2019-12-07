@@ -105,6 +105,7 @@ unsigned int DigishieldCalculateNextWorkRequired(arith_uint256 bnAvg,
     return bnNew.GetCompact();
 }
 
+<<<<<<< HEAD
 
 unsigned int Lwma3CalculateNextWorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params)
 {
@@ -167,6 +168,12 @@ bool CheckEquihashSolution(const CBlockHeader *pblock, const CChainParams& param
     }
 
     LogPrint("pow", "selected n,k : %d, %d \n", n,k);
+=======
+bool CheckEquihashSolution(const CBlockHeader *pblock, const Consensus::Params& params)
+{
+    unsigned int n = params.nEquihashN;
+    unsigned int k = params.nEquihashK;
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
     // Hash state
     crypto_generichash_blake2b_state state;

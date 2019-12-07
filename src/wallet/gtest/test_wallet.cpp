@@ -379,8 +379,13 @@ TEST(WalletTests, SetSaplingNoteAddrsInCWalletTx) {
     ASSERT_TRUE(nf);
     uint256 nullifier = nf.get();
 
+<<<<<<< HEAD
     auto builder = TransactionBuilder(consensusParams, 1);
     ASSERT_TRUE(builder.AddSaplingSpend(expsk, note, anchor, witness));
+=======
+    auto builder = TransactionBuilder(consensusParams, 1, expiryDelta);
+    builder.AddSaplingSpend(expsk, note, anchor, witness);
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     builder.AddSaplingOutput(fvk.ovk, pk, 50000, {});
     builder.SetFee(0);
     auto tx = builder.Build().GetTxOrThrow();
@@ -497,9 +502,15 @@ TEST(WalletTests, FindMySaplingNotes) {
     auto witness = tree.witness();
 
     // Generate transaction
+<<<<<<< HEAD
     auto builder = TransactionBuilder(consensusParams, 1);
     ASSERT_TRUE(builder.AddSaplingSpend(expsk, note, anchor, witness));
     builder.AddSaplingOutput(fvk.ovk, pk, 25000, {});
+=======
+    auto builder = TransactionBuilder(consensusParams, 1, expiryDelta);
+    builder.AddSaplingSpend(expsk, testNote.note, testNote.tree.root(), testNote.tree.witness());
+    builder.AddSaplingOutput(fvk.ovk, pa, 25000, {});
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     auto tx = builder.Build().GetTxOrThrow();
 
     // No Sapling notes can be found in tx which does not belong to the wallet
@@ -635,8 +646,13 @@ TEST(WalletTests, GetConflictedSaplingNotes) {
     auto witness = saplingTree.witness();
 
     // Generate tx to create output note B
+<<<<<<< HEAD
     auto builder = TransactionBuilder(consensusParams, 1);
     ASSERT_TRUE(builder.AddSaplingSpend(expsk, note, anchor, witness));
+=======
+    auto builder = TransactionBuilder(consensusParams, 1, expiryDelta);
+    builder.AddSaplingSpend(expsk, note, anchor, witness);
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     builder.AddSaplingOutput(fvk.ovk, pk, 35000, {});
     auto tx = builder.Build().GetTxOrThrow();
     CWalletTx wtx {&wallet, tx};
@@ -689,14 +705,24 @@ TEST(WalletTests, GetConflictedSaplingNotes) {
     anchor = saplingTree.root();
 
     // Create transaction to spend note B
+<<<<<<< HEAD
     auto builder2 = TransactionBuilder(consensusParams, 2);
     ASSERT_TRUE(builder2.AddSaplingSpend(expsk, note2, anchor, spend_note_witness));
+=======
+    auto builder2 = TransactionBuilder(consensusParams, 2, expiryDelta);
+    builder2.AddSaplingSpend(expsk, note2, anchor, spend_note_witness);
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     builder2.AddSaplingOutput(fvk.ovk, pk, 20000, {});
     auto tx2 = builder2.Build().GetTxOrThrow();
 
     // Create conflicting transaction which also spends note B
+<<<<<<< HEAD
     auto builder3 = TransactionBuilder(consensusParams, 2);
     ASSERT_TRUE(builder3.AddSaplingSpend(expsk, note2, anchor, spend_note_witness));
+=======
+    auto builder3 = TransactionBuilder(consensusParams, 2, expiryDelta);
+    builder3.AddSaplingSpend(expsk, note2, anchor, spend_note_witness);
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     builder3.AddSaplingOutput(fvk.ovk, pk, 19999, {});
     auto tx3 = builder3.Build().GetTxOrThrow();
 
@@ -794,9 +820,15 @@ TEST(WalletTests, SaplingNullifierIsSpent) {
     auto witness = tree.witness();
 
     // Generate transaction
+<<<<<<< HEAD
     auto builder = TransactionBuilder(consensusParams, 1);
     ASSERT_TRUE(builder.AddSaplingSpend(expsk, note, anchor, witness));
     builder.AddSaplingOutput(fvk.ovk, pk, 25000, {});
+=======
+    auto builder = TransactionBuilder(consensusParams, 1, expiryDelta);
+    builder.AddSaplingSpend(expsk,  testNote.note, testNote.tree.root(), testNote.tree.witness());
+    builder.AddSaplingOutput(fvk.ovk, pa, 25000, {});
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     auto tx = builder.Build().GetTxOrThrow();
 
     CWalletTx wtx {&wallet, tx};
@@ -889,9 +921,15 @@ TEST(WalletTests, NavigateFromSaplingNullifierToNote) {
     auto witness = saplingTree.witness();
 
     // Generate transaction
+<<<<<<< HEAD
     auto builder = TransactionBuilder(consensusParams, 1);
     ASSERT_TRUE(builder.AddSaplingSpend(expsk, note, anchor, witness));
     builder.AddSaplingOutput(fvk.ovk, pk, 25000, {});
+=======
+    auto builder = TransactionBuilder(consensusParams, 1, expiryDelta);
+    builder.AddSaplingSpend(expsk, testNote.note, testNote.tree.root(), testNote.tree.witness());
+    builder.AddSaplingOutput(fvk.ovk, pa, 25000, {});
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     auto tx = builder.Build().GetTxOrThrow();
 
     CWalletTx wtx {&wallet, tx};
@@ -1023,8 +1061,13 @@ TEST(WalletTests, SpentSaplingNoteIsFromMe) {
     auto witness = saplingTree.witness();
 
     // Generate transaction, which sends funds to note B
+<<<<<<< HEAD
     auto builder = TransactionBuilder(consensusParams, 1);
     ASSERT_TRUE(builder.AddSaplingSpend(expsk, note, anchor, witness));
+=======
+    auto builder = TransactionBuilder(consensusParams, 1, expiryDelta);
+    builder.AddSaplingSpend(expsk, note, anchor, witness);
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     builder.AddSaplingOutput(fvk.ovk, pk, 25000, {});
     auto tx = builder.Build().GetTxOrThrow();
 
@@ -1093,8 +1136,13 @@ TEST(WalletTests, SpentSaplingNoteIsFromMe) {
     anchor = saplingTree.root();
 
     // Create transaction to spend note B
+<<<<<<< HEAD
     auto builder2 = TransactionBuilder(consensusParams, 2);
     ASSERT_TRUE(builder2.AddSaplingSpend(expsk, note2, anchor, spend_note_witness));
+=======
+    auto builder2 = TransactionBuilder(consensusParams, 2, expiryDelta);
+    builder2.AddSaplingSpend(expsk, note2, anchor, spend_note_witness);
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     builder2.AddSaplingOutput(fvk.ovk, pk, 12500, {});
     auto tx2 = builder2.Build().GetTxOrThrow();
     EXPECT_EQ(tx2.vin.size(), 0);
@@ -1721,9 +1769,15 @@ TEST(WalletTests, UpdatedSaplingNoteData) {
     auto witness = saplingTree.witness();
 
     // Generate transaction
+<<<<<<< HEAD
     auto builder = TransactionBuilder(consensusParams, 1);
     ASSERT_TRUE(builder.AddSaplingSpend(expsk, note, anchor, witness));
     builder.AddSaplingOutput(fvk.ovk, pk2, 25000, {});
+=======
+    auto builder = TransactionBuilder(consensusParams, 1, expiryDelta);
+    builder.AddSaplingSpend(expsk, testNote.note, testNote.tree.root(), testNote.tree.witness());
+    builder.AddSaplingOutput(fvk.ovk, pa2, 25000, {});
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     auto tx = builder.Build().GetTxOrThrow();
 
     // Wallet contains fvk1 but not fvk2
@@ -1869,7 +1923,7 @@ TEST(WalletTests, MarkAffectedSaplingTransactionsDirty) {
 
     // Generate shielding tx from transparent to Sapling
     // 0.0005 t-ZEC in, 0.0004 z-ZEC out, 0.0001 t-ZEC fee
-    auto builder = TransactionBuilder(consensusParams, 1, &keystore);
+    auto builder = TransactionBuilder(consensusParams, 1, expiryDelta, &keystore);
     builder.AddTransparentInput(COutPoint(), scriptPubKey, 50000);
     builder.AddSaplingOutput(fvk.ovk, pk, 40000, {});
     auto tx1 = builder.Build().GetTxOrThrow();
@@ -1924,8 +1978,13 @@ TEST(WalletTests, MarkAffectedSaplingTransactionsDirty) {
 
     // Create a Sapling-only transaction
     // 0.0004 z-ZEC in, 0.00025 z-ZEC out, 0.0001 t-ZEC fee, 0.00005 z-ZEC change
+<<<<<<< HEAD
     auto builder2 = TransactionBuilder(consensusParams, 2);
     ASSERT_TRUE(builder2.AddSaplingSpend(expsk, note, anchor, witness));
+=======
+    auto builder2 = TransactionBuilder(consensusParams, 2, expiryDelta);
+    builder2.AddSaplingSpend(expsk, note, anchor, witness);
+>>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     builder2.AddSaplingOutput(fvk.ovk, pk, 25000, {});
     auto tx2 = builder2.Build().GetTxOrThrow();
 

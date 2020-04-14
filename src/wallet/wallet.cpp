@@ -1347,10 +1347,9 @@ int CWallet::VerifyAndSetInitialWitness(const CBlockIndex* pindex)
 
 void CWallet::BuildWitnessCache(const CBlockIndex* pindex, bool witnessOnly)
 {
-    
-  int startHeight = VerifyAndSetInitialWitness(pindex) + 1;
-
   LOCK2(cs_wallet,cs_main);
+
+  int startHeight = VerifyAndSetInitialWitness(pindex) + 1;
 
   if (startHeight > pindex->nHeight || witnessOnly) {
     return;
@@ -3332,7 +3331,7 @@ int CWallet::ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate)
             }
             pindex = chainActive.Next(pindex);
         }
-        
+
         //Update all witness caches
         BuildWitnessCache(chainActive.Tip(), false);
 

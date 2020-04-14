@@ -24,6 +24,7 @@
 #include "utilmoneystr.h"
 #include "vidulum/Note.hpp"
 #include "crypter.h"
+#include "wallet/asyncrpcoperation_saplingconsolidation.h"
 #include "vidulum/zip32.h"
 
 #include <assert.h>
@@ -583,7 +584,7 @@ void CWallet::ChainTip(const CBlockIndex *pindex,
         if (!IsInitialBlockDownload(Params()) &&
             pblock->GetBlockTime() > GetAdjustedTime() - 3 * 60 * 60)
         {
-            RunSaplingMigration(pindex->nHeight);
+            RunSaplingConsolidation(pindex->nHeight);
         }
     } else {
         DecrementNoteWitnesses(pindex);
@@ -631,6 +632,35 @@ std::set<std::pair<libzcash::PaymentAddress, uint256>> CWallet::GetNullifiersFor
     }
     return nullifierSet;
 }
+
+void CWallet::RunSaplingConsolidation(int blockHeight) {
+    if (!Params().GetConsensus().NetworkUpgradeActive(blockHeight, Consensus::UPGRADE_SAPLING)) {
+        return;
+    }
+    LOCK(cs_wallet);
+    if (!fSaplingConsolidationEnabled) {
+        return;
+    }
+
+    int consolidateInterval = rand() % 5 + 5;
+    if (blockHeight % consolidateInterval == 0) {
+        std::shared_ptr<AsyncRPCQueue> q = getAsyncRPCQueue();
+        std::shared_ptr<AsyncRPCOperation> lastOperation = q->getOperationForId(saplingConsolidationOperationId);
+        if (lastOperation != nullptr) {
+            lastOperation->cancel();
+        }
+        pendingSaplingConsolidationTxs.clear();
+        std::shared_ptr<AsyncRPCOperation> operation(new AsyncRPCOperation_saplingconsolidation(blockHeight + 5));
+        saplingConsolidationOperationId = operation->getId();
+        q->addOperation(operation);
+    }
+}
+
+void CWallet::CommitConsolidationTx(const CTransaction& tx) {
+  CWalletTx wtx(this, tx);
+  CommitTransaction(wtx, boost::none);
+}
+
 
 bool CWallet::IsNoteSproutChange(
         const std::set<std::pair<libzcash::PaymentAddress, uint256>> & nullifierSet,

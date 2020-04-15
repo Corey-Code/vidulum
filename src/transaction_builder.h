@@ -5,6 +5,7 @@
 #ifndef TRANSACTION_BUILDER_H
 #define TRANSACTION_BUILDER_H
 
+#include "coins.h"
 #include "consensus/params.h"
 #include "keystore.h"
 #include "primitives/transaction.h"
@@ -13,6 +14,7 @@
 #include "uint256.h"
 #include "vidulum/Address.hpp"
 #include "vidulum/IncrementalMerkleTree.hpp"
+#include "vidulum/JoinSplit.hpp"
 #include "vidulum/Note.hpp"
 #include "vidulum/NoteEncryption.hpp"
 

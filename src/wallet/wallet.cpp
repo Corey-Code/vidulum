@@ -1687,7 +1687,7 @@ void CWallet::UpdateSproutNullifierNoteMapWithTx(CWalletTx& wtx) {
             if (GetNoteDecryptor(nd.address, dec)) {
                 auto i = item.first.js;
                 auto hSig = wtx.vJoinSplit[i].h_sig(
-                    *pzcashParams, wtx.joinSplitPubKey);
+                    *pvidulumParams, wtx.joinSplitPubKey);
                 auto optNullifier = GetSproutNoteNullifier(
                     wtx.vJoinSplit[i],
                     item.second.address,

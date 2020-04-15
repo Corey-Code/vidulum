@@ -58,19 +58,31 @@ private:
     Consensus::Params consensusParams;
     int nHeight;
     const CKeyStore* keystore;
+    ZCJoinSplit* sproutParams;
+    const CCoinsViewCache* coinsView;
+    CCriticalSection* cs_coinsView;
     CMutableTransaction mtx;
     CAmount fee = 10000;
 
     std::vector<SpendDescriptionInfo> spends;
     std::vector<OutputDescriptionInfo> outputs;
+    std::vector<libzcash::JSInput> jsInputs;
+    std::vector<libzcash::JSOutput> jsOutputs;
     std::vector<TransparentInputInfo> tIns;
 
-    boost::optional<std::pair<uint256, libzcash::SaplingPaymentAddress>> zChangeAddr;
+    boost::optional<std::pair<uint256, libzcash::SaplingPaymentAddress>> saplingChangeAddr;
+    boost::optional<libzcash::SproutPaymentAddress> sproutChangeAddr;
     boost::optional<CTxDestination> tChangeAddr;
 
 public:
     TransactionBuilder() {}
-    TransactionBuilder(const Consensus::Params& consensusParams, int nHeight, CKeyStore* keyStore = nullptr);
+    TransactionBuilder(
+        const Consensus::Params& consensusParams,
+        int nHeight,
+        CKeyStore* keyStore = nullptr,
+        ZCJoinSplit* sproutParams = nullptr,
+        CCoinsViewCache* coinsView = nullptr,
+        CCriticalSection* cs_coinsView = nullptr);
 
     void SetFee(CAmount fee);
 

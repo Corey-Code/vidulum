@@ -23,7 +23,16 @@ SpendDescriptionInfo::SpendDescriptionInfo(
 TransactionBuilder::TransactionBuilder(
     const Consensus::Params& consensusParams,
     int nHeight,
-    CKeyStore* keystore) : consensusParams(consensusParams), nHeight(nHeight), keystore(keystore)
+    CKeyStore* keystore,
+    ZCJoinSplit* sproutParams,
+    CCoinsViewCache* coinsView,
+    CCriticalSection* cs_coinsView) :
+    consensusParams(consensusParams),
+    nHeight(nHeight),
+    keystore(keystore),
+    sproutParams(sproutParams),
+    coinsView(coinsView),
+    cs_coinsView(cs_coinsView)
 {
     mtx = CreateNewContextualCMutableTransaction(consensusParams, nHeight);
 }

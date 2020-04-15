@@ -3405,7 +3405,10 @@ void CWallet::ReacceptWalletTransactions()
 
 bool CWalletTx::RelayWalletTransaction(std::string strCommand)
 {
-    assert(pwallet->GetBroadcastTransactions());
+    {
+        LOCK(pwalletMain->cs_wallet);
+        assert(pwalletMain->GetBroadcastTransactions());
+    }
     if (!IsCoinBase())
     {
         if (GetDepthInMainChain() == 0) {

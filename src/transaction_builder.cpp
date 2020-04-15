@@ -37,6 +37,14 @@ TransactionBuilder::TransactionBuilder(
     mtx = CreateNewContextualCMutableTransaction(consensusParams, nHeight);
 }
 
+void TransactionBuilder::SetExpiryHeight(uint32_t nExpiryHeight)
+{
+    if (nExpiryHeight < nHeight || nExpiryHeight <= 0 || nExpiryHeight >= TX_EXPIRY_HEIGHT_THRESHOLD) {
+        throw new std::runtime_error("TransactionBuilder::SetExpiryHeight: invalid expiry height");
+    }
+    mtx.nExpiryHeight = nExpiryHeight;
+}
+
 bool TransactionBuilder::AddSaplingSpend(
     libzcash::SaplingExpandedSpendingKey expsk,
     libzcash::SaplingNote note,

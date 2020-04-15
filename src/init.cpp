@@ -1774,6 +1774,11 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
         fDeleteTransactionsAfterNBlocks = GetArg("-keeptxfornblocks", DEFAULT_TX_RETENTION_BLOCKS);
         if (fDeleteTransactionsAfterNBlocks < 1)
           return InitError("keeptxfornblocks must be greater than 0");
+          
+        if (fDeleteTransactionsAfterNBlocks < MAX_REORG_LENGTH + 1 ) {
+          LogPrintf("keeptxfornblock is less the MAX_REORG_LENGTH, Setting to %i\n", MAX_REORG_LENGTH + 1);
+          fDeleteTransactionsAfterNBlocks = MAX_REORG_LENGTH + 1;
+        }
 
         if (fFirstRun)
         {

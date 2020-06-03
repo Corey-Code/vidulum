@@ -18,8 +18,7 @@
 #include <boost/function.hpp>
 
 class CBlockIndex;
-
-// START insightexplorer
+struct CDiskTxPos;
 struct CAddressUnspentKey;
 struct CAddressUnspentValue;
 struct CAddressIndexKey;

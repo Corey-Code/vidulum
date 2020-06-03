@@ -464,15 +464,7 @@ void IncrementExtraNonce(CBlock* pblock, const CBlockIndex* pindexPrev, unsigned
     pblock->hashMerkleRoot = pblock->BuildMerkleTree();
 }
 
-<<<<<<< HEAD
-#ifdef ENABLE_WALLET
-static bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
-#else
-static bool ProcessBlockFound(CBlock* pblock)
-#endif // ENABLE_WALLET
-=======
 static bool ProcessBlockFound(const CBlock* pblock, const CChainParams& chainparams)
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 {
     LogPrintf("%s\n", pblock->ToString());
     LogPrintf("generated %s\n", FormatMoney(pblock->vtx[0].vout[0].nValue));
@@ -499,15 +491,10 @@ static bool ProcessBlockFound(const CBlock* pblock, const CChainParams& chainpar
 
     // Process this block the same as if we had received it from another node
     CValidationState state;
-<<<<<<< HEAD
 
     // Check that the time is valid
     if (!ProcessNewBlock(state, NULL, pblock, true, NULL))
         return error("VidulumMiner: ProcessNewBlock, block not accepted");
-=======
-    if (!ProcessNewBlock(state, chainparams, NULL, pblock, true, NULL))
-        return error("ZcashMiner: ProcessNewBlock, block not accepted");
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
     TrackMinedBlock(pblock->GetHash());
 
@@ -533,14 +520,11 @@ void static BitcoinMiner()
     // Each thread has its own counter
     unsigned int nExtraNonce = 0;
 
-<<<<<<< HEAD
-=======
     boost::shared_ptr<CReserveScript> coinbaseScript;
     GetMainSignals().ScriptForMining(coinbaseScript);
 
     unsigned int n = chainparams.GetConsensus().nEquihashN;
     unsigned int k = chainparams.GetConsensus().nEquihashK;
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
     std::string solver = GetArg("-equihashsolver", "default");
     assert(solver == "tromp" || solver == "default");
@@ -579,37 +563,7 @@ void static BitcoinMiner()
             //
             unsigned int nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
 
-<<<<<<< HEAD
-
-            // Get the height of current tip
-            int nHeight = chainActive.Height();
-            if (nHeight == -1) {
-                LogPrintf("Error in Vidulum Miner: chainActive.Height() returned -1\n");
-                return;
-            }
-            CBlockIndex* pindexPrev = chainActive[nHeight];
-
-            // Get equihash parameters for the next block to be mined.
-            EHparameters ehparams[MAX_EH_PARAM_LIST_LEN]; //allocate on-stack space for parameters list
-            validEHparameterList(ehparams,nHeight,chainparams);
-
-            unsigned int n = ehparams[0].n;
-            unsigned int k = ehparams[0].k;
-            LogPrint("pow", "Using Equihash solver \"%s\" with n = %u, k = %u\n", solver, n, k);
-
-
-
-
-
-
-#ifdef ENABLE_WALLET
-            unique_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey));
-#else
-            unique_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey());
-#endif
-=======
             unique_ptr<CBlockTemplate> pblocktemplate(CreateNewBlock(chainparams, coinbaseScript->reserveScript));
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
             if (!pblocktemplate.get())
             {
                 if (GetArg("-mineraddress", "").empty()) {

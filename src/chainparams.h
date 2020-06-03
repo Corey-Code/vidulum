@@ -95,7 +95,6 @@ public:
     bool RequireStandard() const { return fRequireStandard; }
     int64_t MaxTipAge() const { return nMaxTipAge; }
     int64_t PruneAfterHeight() const { return nPruneAfterHeight; }
-<<<<<<< HEAD
 
     EHparameters eh_epoch_1_params() const { return eh_epoch_1; }
     EHparameters eh_epoch_2_params() const { return eh_epoch_2; }
@@ -106,8 +105,6 @@ public:
 
     /** The masternode count that we will allow the see-saw reward payments to be off by */
     int MasternodeCountDrift() const { return nMasternodeCountDrift; }
-=======
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     std::string CurrencyUnits() const { return strCurrencyUnits; }
     uint32_t BIP44CoinType() const { return bip44CoinType; }
     /** Make miner stop after a block is found. In RPC, don't return until nGenProcLimit blocks are generated */
@@ -148,7 +145,6 @@ protected:
     int nDefaultPort = 0;
     long nMaxTipAge = 0;
     uint64_t nPruneAfterHeight = 0;
-<<<<<<< HEAD
     EHparameters eh_epoch_1 = eh200_9;
     EHparameters eh_epoch_2 = eh192_7;
     // unsigned int eh_epoch_1_endtime = 150000; //it's time, not height
@@ -156,8 +152,6 @@ protected:
     unsigned int eh_epoch_1_endblock = 100020;
     unsigned int eh_epoch_2_startblock = 100000;
 
-=======
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     std::vector<CDNSSeedData> vSeeds;
     std::vector<unsigned char> base58Prefixes[MAX_BASE58_TYPES];
     std::string bech32HRPs[MAX_BECH32_TYPES];

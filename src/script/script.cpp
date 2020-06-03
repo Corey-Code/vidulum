@@ -273,27 +273,6 @@ bool CScript::IsPushOnly() const
     return true;
 }
 
-<<<<<<< HEAD
-std::string CScript::ToString() const
-{
-    std::string str;
-    opcodetype opcode;
-    std::vector<unsigned char> vch;
-    const_iterator pc = begin();
-    while (pc < end())
-    {
-        if (!str.empty())
-            str += " ";
-        if (!GetOp(pc, opcode, vch))
-        {
-            str += "[error]";
-            return str;
-        }
-        if (0 <= opcode && opcode <= OP_PUSHDATA4)
-            str += ValueString(vch);
-        else
-            str += GetOpName(opcode);
-=======
 // insightexplorer
 CScript::ScriptType CScript::GetType() const
 {
@@ -319,7 +298,6 @@ uint160 CScript::AddressHash() const
         vector<unsigned char> hashBytes;
         hashBytes.resize(20);
         return uint160(hashBytes);
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     }
     return str;
 }

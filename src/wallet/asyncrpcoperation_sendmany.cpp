@@ -1062,15 +1062,9 @@ bool AsyncRPCOperation_sendmany::find_unspent_notes() {
     }
 
     for (SproutNoteEntry & entry : sproutEntries) {
-<<<<<<< HEAD
-        z_sprout_inputs_.push_back(SendManyInputJSOP(entry.jsop, entry.plaintext.note(boost::get<libzcash::SproutPaymentAddress>(frompaymentaddress_)), CAmount(entry.plaintext.value())));
-        std::string data(entry.plaintext.memo().begin(), entry.plaintext.memo().end());
-        LogPrint("zrpcunsafe", "%s: found unspent Sprout note (txid=%s, vjoinsplit=%d, ciphertext=%d, amount=%s, memo=%s)\n",
-=======
         z_sprout_inputs_.push_back(SendManyInputJSOP(entry.jsop, entry.note, CAmount(entry.note.value())));
         std::string data(entry.memo.begin(), entry.memo.end());
         LogPrint("zrpcunsafe", "%s: found unspent Sprout note (txid=%s, vjoinsplit=%d, jsoutindex=%d, amount=%s, memo=%s)\n",
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
             getId(),
             entry.jsop.hash.ToString().substr(0, 10),
             entry.jsop.js,

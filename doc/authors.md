@@ -1,14 +1,5 @@
-Snowgem Contributors
-==================
+# Snowgem Contributors
 
-<<<<<<< HEAD
-Jack Grigg (514)
-Simon Liu (281)
-Sean Bowe (193)
-Daira Hopwood (102)
-Wladimir J. van der Laan (65)
-Taylor Hornby (65)
-=======
 Jack Grigg (873)
 Simon Liu (451)
 Sean Bowe (278)
@@ -18,21 +9,10 @@ Jay Graber (89)
 Wladimir J. van der Laan (82)
 Taylor Hornby (73)
 Jonas Schnelli (62)
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 Nathan Wilcox (56)
 Jay Graber (50)
 Jonas Schnelli (48)
 Kevin Gallagher (38)
-<<<<<<< HEAD
-Pieter Wuille (16)
-Cory Fields (16)
-nomnombtc (9)
-Paige Peterson (9)
-fanquake (5)
-MarcoFalke (5)
-Johnathan Corgan (5)
-Gregory Maxwell (5)
-=======
 Cory Fields (35)
 Larry Ruane (23)
 Marshall Gaucher (22)
@@ -59,25 +39,9 @@ Karl-Johan Alm (5)
 Johnathan Corgan (5)
 Alex Morcos (5)
 WO (4)
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 Philip Kaufmann (4)
 Pavel Janík (4)
 Patrick Strateman (4)
-<<<<<<< HEAD
-Matt Corallo (4)
-Karl-Johan Alm (4)
-Jeff Garzik (4)
-David Mercer (4)
-Daniel Cousens (4)
-Ariel Gabizon (4)
-lpescher (3)
-kozyilmaz (3)
-Pavel Janík (3)
-João Barbosa (3)
-Alfie John (3)
-str4d (2)
-paveljanik (2)
-=======
 João Barbosa (4)
 George Tankersley (4)
 Gareth Davies (4)
@@ -93,22 +57,17 @@ Dimitris Apostolou (3)
 Alfie John (3)
 rofl0r (2)
 mruddy (2)
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 kpcyrd (2)
 face (2)
 aniemerg (2)
 Scott (2)
 Robert C. Seacord (2)
-<<<<<<< HEAD
-Luke Dashjr (2)
-=======
 Pejvan (2)
 Pavol Rusnak (2)
 Pavel Vasin (2)
 Matthew King (2)
 Mary Moore-Simmons (2)
 Kaz Wesley (2)
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 Joe Turgeon (2)
 Jason Davies (2)
 Jack Gavigan (2)
@@ -138,10 +97,7 @@ Paragon Initiative Enterprises, LLC (1)
 Nathaniel Mahieu (1)
 Murilo Santana (1)
 Matt Quinn (1)
-<<<<<<< HEAD
-=======
 Mark Friedenbach (1)
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 Louis Nyffenegger (1)
 Leo Arias (1)
 Lars-Magnus Skog (1)

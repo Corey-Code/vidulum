@@ -400,11 +400,6 @@ UniValue getrawtransaction(const UniValue& params, bool fHelp)
             + HelpExampleRpc("getrawtransaction", "\"mytxid\", 1")
         );
 
-<<<<<<< HEAD
-    LOCK(cs_main);
-
-=======
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     uint256 hash = ParseHashV(params[0], "parameter 1");
 
     bool fVerbose = false;

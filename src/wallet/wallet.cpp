@@ -568,24 +568,6 @@ void CWallet::ChainTip(const CBlockIndex *pindex,
                        bool added)
 {
     if (added) {
-<<<<<<< HEAD
-        // Prevent witness cache building as well as migration && consolidation transactions
-        // from being created when node is syncing after launch,
-        // and also when node wakes up from suspension/hibernation and incoming blocks are old.
-        bool initialDownloadCheck = IsInitialBlockDownload(Params());
-        if (!initialDownloadCheck &&
-            pblock->GetBlockTime() > GetAdjustedTime() - 3600) //Last 144 blocks 1 * 60 * 60
-        {
-            BuildWitnessCache(pindex, false);
-            RunSaplingConsolidation(pindex->nHeight);
-            DeleteWalletTransactions(pindex);
-        } else {
-          //Build intial witnesses on every block
-          BuildWitnessCache(pindex, true);
-          if (initialDownloadCheck && pindex->nHeight % fDeleteInterval == 0) {
-            DeleteWalletTransactions(pindex);
-          }
-=======
         ChainTipAdded(pindex, pblock, sproutTree, saplingTree);
         // Prevent migration transactions from being created when node is syncing after launch,
         // and also when node wakes up from suspension/hibernation and incoming blocks are old.
@@ -593,7 +575,6 @@ void CWallet::ChainTip(const CBlockIndex *pindex,
             pblock->GetBlockTime() > GetAdjustedTime() - 3 * 60 * 60)
         {
             RunSaplingMigration(pindex->nHeight);
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
         }
     } else {
         DecrementNoteWitnesses(pindex);
@@ -601,8 +582,6 @@ void CWallet::ChainTip(const CBlockIndex *pindex,
     }
 }
 
-<<<<<<< HEAD
-=======
 void CWallet::RunSaplingMigration(int blockHeight) {
     if (!NetworkUpgradeActive(blockHeight, Params().GetConsensus(), Consensus::UPGRADE_SAPLING)) {
         return;
@@ -660,7 +639,6 @@ void CWallet::SetBestChain(const CBlockLocator& loc)
     SetBestChainINTERNAL(walletdb, loc);
 }
 
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 std::set<std::pair<libzcash::PaymentAddress, uint256>> CWallet::GetNullifiersForAddresses(
         const std::set<libzcash::PaymentAddress> & addresses)
 {
@@ -1307,21 +1285,10 @@ int CWallet::VerifyAndSetInitialWitness(const CBlockIndex* pindex, bool witnessO
 
         LogPrintf("Setting Inital Sprout Witness for tx %s, %i of %i\n", wtxHash.ToString(), nWitnessTxIncrement, nWitnessTotalTxCount);
 
-<<<<<<< HEAD
-        SproutMerkleTree sproutTree;
-        blockRoot = pblockindex->pprev->hashFinalSproutRoot;
-        pcoinsTip->GetSproutAnchorAt(blockRoot, sproutTree);
-
-        //Cycle through blocks and transactions building sprout tree until the commitment needed is reached
-        const CBlock* pblock;
-        CBlock block;
-        ReadBlockFromDisk(block, pblockindex, Params().GetConsensus());
-=======
     const CBlock* pblock {pblockIn};
     CBlock block;
     if (!pblock) {
         ReadBlockFromDisk(block, pindex, Params().GetConsensus());
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
         pblock = &block;
 
         for (const CTransaction& tx : block.vtx) {
@@ -6255,12 +6222,8 @@ void CWallet::GetFilteredNotes(
                         hSig,
                         (unsigned char) j);
 
-<<<<<<< HEAD
-                sproutEntries.push_back(SproutNoteEntry{jsop, pa, plaintext, wtx.GetDepthInMainChain()});
-=======
                 sproutEntries.push_back(SproutNoteEntry {
                     jsop, pa, plaintext.note(pa), plaintext.memo(), wtx.GetDepthInMainChain() });
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
             } catch (const note_decryption_failed &err) {
                 // Couldn't decrypt with this spending key

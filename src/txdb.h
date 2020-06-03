@@ -18,12 +18,8 @@
 #include <boost/function.hpp>
 
 class CBlockIndex;
-<<<<<<< HEAD
-struct CDiskTxPos;
-=======
 
 // START insightexplorer
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 struct CAddressUnspentKey;
 struct CAddressUnspentValue;
 struct CAddressIndexKey;

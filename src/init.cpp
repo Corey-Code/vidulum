@@ -650,12 +650,7 @@ void CleanupBlockRevFiles()
 
 void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
 {
-<<<<<<< HEAD
     RenameThread("vidulum-loadblk");
-=======
-    const CChainParams& chainparams = Params();
-    RenameThread("zcash-loadblk");
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     // -reindex
     if (fReindex) {
         CImportingNow imp;
@@ -2112,16 +2107,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
 #ifdef ENABLE_MINING
     // Generate coins in the background
-<<<<<<< HEAD
- #ifdef ENABLE_WALLET
-    if (pwalletMain || !GetArg("-mineraddress", "").empty())
-        GenerateBitcoins(GetBoolArg("-gen", false), pwalletMain, GetArg("-genproclimit", 1));
- #else
-    GenerateBitcoins(GetBoolArg("-gen", false), GetArg("-genproclimit", 1));
- #endif
-=======
     GenerateBitcoins(GetBoolArg("-gen", false), GetArg("-genproclimit", 1), chainparams);
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 #endif
 
     // ********************************************************* Step 11: finished

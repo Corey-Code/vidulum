@@ -842,13 +842,8 @@ private:
     TxNullifiers mapTxSproutNullifiers;
     TxNullifiers mapTxSaplingNullifiers;
 
-<<<<<<< HEAD
-    std::vector<CTransaction> pendingSaplingConsolidationTxs;
-    AsyncRPCOperationId saplingConsolidationOperationId;
-=======
     std::vector<CTransaction> pendingSaplingMigrationTxs;
     AsyncRPCOperationId saplingMigrationOperationId;
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
     void AddToTransparentSpends(const COutPoint& outpoint, const uint256& wtxid);
     void AddToSproutSpends(const uint256& nullifier, const uint256& wtxid);

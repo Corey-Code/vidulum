@@ -36,22 +36,6 @@ TEST(TransactionBuilder, Invoke)
 
     // Create a shielding transaction from transparent to Sapling
     // 0.0005 t-ZEC in, 0.0004 z-ZEC out, 0.0001 t-ZEC fee
-<<<<<<< HEAD
-    auto builder1 = TransactionBuilder(consensusParams, 1, &keystore);
-    builder1.AddTransparentInput(COutPoint(), scriptPubKey, 50000);
-    builder1.AddSaplingOutput(fvk_from.ovk, pk, 40000, {});
-    auto tx1 = builder1.Build().GetTxOrThrow();
-
-    EXPECT_EQ(tx1.vin.size(), 1);
-    EXPECT_EQ(tx1.vout.size(), 0);
-    EXPECT_EQ(tx1.vjoinsplit.size(), 0);
-    EXPECT_EQ(tx1.vShieldedSpend.size(), 0);
-    EXPECT_EQ(tx1.vShieldedOutput.size(), 1);
-    EXPECT_EQ(tx1.valueBalance, -40000);
-
-    CValidationState state;
-    EXPECT_TRUE(ContextualCheckTransaction(tx1, state, 2, 0));
-=======
     auto builder = TransactionBuilder(consensusParams, 1, expiryDelta, &keystore);
     builder.AddTransparentInput(COutPoint(), scriptPubKey, 50000);
     builder.AddSaplingOutput(fvk_from.ovk, pk, 40000, {});
@@ -66,7 +50,6 @@ TEST(TransactionBuilder, Invoke)
 
     CValidationState state;
     EXPECT_TRUE(ContextualCheckTransaction(tx, state, Params(), 2, 0));
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     EXPECT_EQ(state.GetRejectReason(), "");
 
     // Prepare to spend the note that was just created

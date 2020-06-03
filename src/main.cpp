@@ -906,14 +906,8 @@ bool ContextualCheckTransaction(
         const int dosLevel,
         bool (*isInitBlockDownload)(const CChainParams&))
 {
-<<<<<<< HEAD
     bool overwinterActive = NetworkUpgradeActive(nHeight, Params().GetConsensus(), Consensus::UPGRADE_OVERWINTER);
     bool saplingActive = NetworkUpgradeActive(nHeight, Params().GetConsensus(), Consensus::UPGRADE_SAPLING);
-=======
-    bool overwinterActive = NetworkUpgradeActive(nHeight, chainparams.GetConsensus(), Consensus::UPGRADE_OVERWINTER);
-    bool saplingActive = NetworkUpgradeActive(nHeight, chainparams.GetConsensus(), Consensus::UPGRADE_SAPLING);
-    bool cosmosActive = NetworkUpgradeActive(nHeight, chainparams.GetConsensus(), Consensus::UPGRADE_COSMOS);
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
     bool isSprout = !overwinterActive;
 
     // If Sprout rules apply, reject transactions which are intended for Overwinter and beyond
@@ -2584,9 +2578,6 @@ static bool ApplyTxInUndo(const CTxInUndo& undo, CCoinsViewCache& view, const CO
     return fClean;
 }
 
-<<<<<<< HEAD
-bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, CCoinsViewCache& view, bool* pfClean)
-=======
 enum DisconnectResult
 {
     DISCONNECT_OK,      // All good.
@@ -2601,7 +2592,6 @@ enum DisconnectResult
 static DisconnectResult DisconnectBlock(const CBlock& block, CValidationState& state,
     const CBlockIndex* pindex, CCoinsViewCache& view, const CChainParams& chainparams,
     const bool updateIndices)
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 {
     assert(pindex->GetBlockHash() == view.GetBestBlock());
 
@@ -2627,9 +2617,6 @@ static DisconnectResult DisconnectBlock(const CBlock& block, CValidationState& s
     // undo transactions in reverse order
     for (int i = block.vtx.size() - 1; i >= 0; i--) {
         const CTransaction &tx = block.vtx[i];
-<<<<<<< HEAD
-        uint256 hash = tx.GetHash();
-=======
         uint256 const hash = tx.GetHash();
 
         // insightexplorer
@@ -2653,7 +2640,6 @@ static DisconnectResult DisconnectBlock(const CBlock& block, CValidationState& s
                 }
             }
         }
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
         if (fAddressIndex) {
 
@@ -2720,24 +2706,11 @@ static DisconnectResult DisconnectBlock(const CBlock& block, CValidationState& s
                     fClean = false;
 
                 const CTxIn input = tx.vin[j];
-<<<<<<< HEAD
-
-                if (fSpentIndex) {
-                    // undo and delete the spent index
-                    spentIndex.push_back(make_pair(CSpentIndexKey(input.prevout.hash, input.prevout.n), CSpentIndexValue()));
-                }
-
-                if (fAddressIndex) {
-                    const CTxOut &prevout = view.GetOutputFor(tx.vin[j]);
-                    if (prevout.scriptPubKey.IsPayToScriptHash()) {
-                        vector<unsigned char> hashBytes(prevout.scriptPubKey.begin()+2, prevout.scriptPubKey.begin()+22);
-=======
                 if (fAddressIndex && updateIndices) {
                     const CTxOut &prevout = view.GetOutputFor(input);
                     CScript::ScriptType scriptType = prevout.scriptPubKey.GetType();
                     if (scriptType != CScript::UNKNOWN) {
                         uint160 const addrHash = prevout.scriptPubKey.AddressHash();
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
                         // undo spending activity
                         addressIndex.push_back(make_pair(CAddressIndexKey(2, uint160(hashBytes), pindex->nHeight, i, hash, j, true), prevout.nValue * -1));
@@ -3021,27 +2994,9 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
 
                     const CTxIn input = tx.vin[j];
                     const CTxOut &prevout = view.GetOutputFor(tx.vin[j]);
-<<<<<<< HEAD
-                    uint160 hashBytes;
-                    int addressType;
-
-                    if (prevout.scriptPubKey.IsPayToScriptHash()) {
-                        hashBytes = uint160(vector <unsigned char>(prevout.scriptPubKey.begin()+2, prevout.scriptPubKey.begin()+22));
-                        addressType = 2;
-                    } else if (prevout.scriptPubKey.IsPayToPublicKeyHash()) {
-                        hashBytes = uint160(vector <unsigned char>(prevout.scriptPubKey.begin()+3, prevout.scriptPubKey.begin()+23));
-                        addressType = 1;
-                    } else {
-                        hashBytes.SetNull();
-                        addressType = 0;
-                    }
-
-                    if (fAddressIndex && addressType > 0) {
-=======
                     CScript::ScriptType scriptType = prevout.scriptPubKey.GetType();
                     const uint160 addrHash = prevout.scriptPubKey.AddressHash();
                     if (fAddressIndex && scriptType != CScript::UNKNOWN) {
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
                         // record spending activity
                         addressIndex.push_back(make_pair(CAddressIndexKey(addressType, hashBytes, pindex->nHeight, i, txhash, j, true), prevout.nValue * -1));
 
@@ -3082,15 +3037,9 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         if (fAddressIndex) {
             for (unsigned int k = 0; k < tx.vout.size(); k++) {
                 const CTxOut &out = tx.vout[k];
-<<<<<<< HEAD
-
-                if (out.scriptPubKey.IsPayToScriptHash()) {
-                    vector<unsigned char> hashBytes(out.scriptPubKey.begin()+2, out.scriptPubKey.begin()+22);
-=======
                 CScript::ScriptType scriptType = out.scriptPubKey.GetType();
                 if (scriptType != CScript::UNKNOWN) {
                     uint160 const addrHash = out.scriptPubKey.AddressHash();
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
                     // record receiving activity
                     addressIndex.push_back(make_pair(CAddressIndexKey(2, uint160(hashBytes), pindex->nHeight, i, txhash, k, false), out.nValue));
@@ -3412,12 +3361,8 @@ bool static DisconnectTip(CValidationState &state, const CChainParams& chainpara
     int64_t nStart = GetTimeMicros();
     {
         CCoinsViewCache view(pcoinsTip);
-<<<<<<< HEAD
-        if (!DisconnectBlock(block, state, pindexDelete, view))
-=======
         // insightexplorer: update indices (true)
         if (DisconnectBlock(block, state, pindexDelete, view, chainparams, true) != DISCONNECT_OK)
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
             return error("DisconnectTip(): DisconnectBlock %s failed", pindexDelete->GetBlockHash().ToString());
         assert(view.Flush());
     }
@@ -4200,7 +4145,6 @@ bool CheckBlock(const CBlock& block, CValidationState& state,
             return state.DoS(100, error("CheckBlock(): more than one coinbase"),
                              REJECT_INVALID, "bad-cb-multiple");
 
-<<<<<<< HEAD
     // ----------- swiftTX transaction scanning -----------
     if (IsSporkActive(SPORK_3_SWIFTTX_BLOCK_FILTERING)) {
         BOOST_FOREACH (const CTransaction& tx, block.vtx) {
@@ -4222,59 +4166,6 @@ bool CheckBlock(const CBlock& block, CValidationState& state,
         LogPrintf("CheckBlock() : skipping transaction locking checks\n");
     }
 
-=======
-     // ----------- swiftTX transaction scanning -----------
-     if (IsSporkActive(SPORK_3_SWIFTTX_BLOCK_FILTERING)) {
-         BOOST_FOREACH (const CTransaction& tx, block.vtx) {
-             if (!tx.IsCoinBase()) {
-                 //only reject blocks when it's based on complete consensus
-                 BOOST_FOREACH (const CTxIn& in, tx.vin) {
-                     if (mapLockedInputs.count(in.prevout)) {
-                         if (mapLockedInputs[in.prevout] != tx.GetHash()) {
-                             mapRejectedBlocks.insert(make_pair(block.GetHash(), GetTime()));
-                             LogPrintf("CheckBlock() : found conflicting transaction with transaction lock %s %s\n", mapLockedInputs[in.prevout].ToString(), tx.GetHash().ToString());
-                             return state.DoS(0, error("CheckBlock() : found conflicting transaction with transaction lock"),
-                                 REJECT_INVALID, "conflicting-tx-ix");
-                         }
-                     }
-                 }
-             }
-         }
-     } else {
-         LogPrintf("CheckBlock() : skipping transaction locking checks\n");
-     }
-
-
-     // zeronode payments / budgets
-     CBlockIndex* pindexPrev = chainActive.Tip();
-     int nHeight = 0;
-     if (pindexPrev != NULL) {
-         if (pindexPrev->GetBlockHash() == block.hashPrevBlock) {
-             nHeight = pindexPrev->nHeight + 1;
-         } else { //out of order
-             BlockMap::iterator mi = mapBlockIndex.find(block.hashPrevBlock);
-             if (mi != mapBlockIndex.end() && (*mi).second)
-                 nHeight = (*mi).second->nHeight + 1;
-         }
-
-         // Zero
-         // It is entierly possible that we don't have enough data and this could fail
-         // (i.e. the block could indeed be valid). Store the block for later consideration
-         // but issue an initial reject message.
-         // The case also exists that the sending peer could not have enough data to see
-         // that this block is invalid, so don't issue an outright ban.
-         if (nHeight != 0 && !IsInitialBlockDownload(chainparams)) {
-             if (!IsBlockPayeeValid(block, nHeight)) {
-                 mapRejectedBlocks.insert(make_pair(block.GetHash(), GetTime()));
-                 return state.DoS(0, error("CheckBlock() : Couldn't find zeronode/budget payment"),
-                         REJECT_INVALID, "bad-cb-payee");
-             }
-         } else {
-             if (fDebug)
-                 LogPrintf("CheckBlock(): Zeronode payment check skipped on sync - skipping IsBlockPayeeValid()\n");
-         }
-     }
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
     // masternode payments / budgets
     CBlockIndex* pindexPrev = chainActive.Tip();
@@ -4409,13 +4300,8 @@ bool ContextualCheckBlock(
         bool found = false;
         
         BOOST_FOREACH(const CTxOut& output, block.vtx[0].vout) {
-<<<<<<< HEAD
             if (output.scriptPubKey == Params().GetVRewardSystemScriptAtHeight(nHeight)) {
                 if (output.nValue == (GetBlockSubsidy(nHeight, consensusParams) * 20 / 100)) {
-=======
-            if (output.scriptPubKey == chainparams.GetFoundersRewardScriptAtHeight(nHeight)) {
-                if (output.nValue == (GetBlockSubsidy(nHeight, consensusParams) * 0.075)) {
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
                     found = true;
                     break;
                 }
@@ -4798,11 +4684,7 @@ CBlockIndex * InsertBlockIndex(uint256 hash)
 bool static LoadBlockIndexDB()
 {
     const CChainParams& chainparams = Params();
-<<<<<<< HEAD
-    if (!pblocktree->LoadBlockIndexGuts())
-=======
     if (!pblocktree->LoadBlockIndexGuts(InsertBlockIndex))
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
         return false;
 
     boost::this_thread::interruption_point();
@@ -5020,14 +4902,9 @@ bool CVerifyDB::VerifyDB(const CChainParams& chainparams, CCoinsView *coinsview,
         }
         // check level 3: check for inconsistencies during memory-only disconnect of tip blocks
         if (nCheckLevel >= 3 && pindex == pindexState && (coins.DynamicMemoryUsage() + pcoinsTip->DynamicMemoryUsage()) <= nCoinCacheUsage) {
-<<<<<<< HEAD
-            bool fClean = true;
-            if (!DisconnectBlock(block, state, pindex, coins, &fClean))
-=======
             // insightexplorer: do not update indices (false)
             DisconnectResult res = DisconnectBlock(block, state, pindex, coins, chainparams, false);
             if (res == DISCONNECT_FAILED) {
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
                 return error("VerifyDB(): *** irrecoverable inconsistency in block data at %d, hash=%s", pindex->nHeight, pindex->GetBlockHash().ToString());
             pindexState = pindex->pprev;
             if (!fClean) {

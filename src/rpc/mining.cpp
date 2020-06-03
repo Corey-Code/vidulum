@@ -204,32 +204,11 @@ UniValue generate(const UniValue& params, bool fHelp)
     }
     unsigned int nExtraNonce = 0;
     UniValue blockHashes(UniValue::VARR);
-<<<<<<< HEAD
-
-
-
-    EHparameters ehparams[MAX_EH_PARAM_LIST_LEN]; //allocate on-stack space for parameters list
-    const CChainParams& chainparams = Params();
-    
-    while (nHeight < nHeightEnd)
-    {
-            validEHparameterList(ehparams,nHeight+1,chainparams);
-            unsigned int n = ehparams[0].n;
-            unsigned int k = ehparams[0].k;
-
-
-#ifdef ENABLE_WALLET
-        std::unique_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey));
-#else
-        std::unique_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey());
-#endif
-=======
     unsigned int n = Params().GetConsensus().nEquihashN;
     unsigned int k = Params().GetConsensus().nEquihashK;
     while (nHeight < nHeightEnd)
     {
         std::unique_ptr<CBlockTemplate> pblocktemplate(CreateNewBlock(Params(), coinbaseScript->reserveScript));
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
         if (!pblocktemplate.get())
             throw JSONRPCError(RPC_INTERNAL_ERROR, "Wallet keypool empty");
         CBlock *pblock = &pblocktemplate->block;
@@ -585,13 +564,8 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
     if (vNodes.empty())
         throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Vidulum is not connected!");
 
-<<<<<<< HEAD
     if (IsInitialBlockDownload())
         throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Vidulum is downloading blocks...");
-=======
-    if (IsInitialBlockDownload(Params()))
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "ZERO is downloading blocks...");
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
     static unsigned int nTransactionsUpdatedLast;
 
@@ -662,24 +636,12 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
             delete pblocktemplate;
             pblocktemplate = NULL;
         }
-<<<<<<< HEAD
 #ifdef ENABLE_WALLET
         CReserveKey reservekey(pwalletMain);
         pblocktemplate = CreateNewBlockWithKey(reservekey);
 #else
         pblocktemplate = CreateNewBlockWithKey();
 #endif
-=======
-
-        boost::shared_ptr<CReserveScript> coinbaseScript;
-        GetMainSignals().ScriptForMining(coinbaseScript);
-
-        // Throw an error if no script was provided
-        if (!coinbaseScript->reserveScript.size())
-            throw JSONRPCError(RPC_INTERNAL_ERROR, "No coinbase script available (mining requires a wallet or -mineraddress)");
-
-        pblocktemplate = CreateNewBlock(Params(), coinbaseScript->reserveScript);
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
         if (!pblocktemplate)
             throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
 

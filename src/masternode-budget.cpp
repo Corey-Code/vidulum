@@ -205,13 +205,8 @@ void CBudgetManager::SubmitFinalBudget()
     CTransaction txCollateral;
     uint256 nBlockHash;
 
-<<<<<<< HEAD:src/masternode-budget.cpp
     if (!GetTransaction(txidCollateral, txCollateral, nBlockHash, true)) {
         LogPrint("masternode","CBudgetManager::SubmitFinalBudget - Can't find collateral tx %s", txidCollateral.ToString());
-=======
-    if (!GetTransaction(txidCollateral, txCollateral, Params().GetConsensus(), nBlockHash, true)) {
-        LogPrint("zeronode","CBudgetManager::SubmitFinalBudget - Can't find collateral tx %s", txidCollateral.ToString());
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6:src/zeronode/budget.cpp
         return;
     }
 

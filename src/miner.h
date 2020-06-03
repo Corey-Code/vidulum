@@ -27,18 +27,7 @@ struct CBlockTemplate
 };
 
 /** Generate a new block, without valid proof-of-work */
-<<<<<<< HEAD
-CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn);
-#ifdef ENABLE_WALLET
-boost::optional<CScript> GetMinerScriptPubKey(CReserveKey& reservekey);
-CBlockTemplate* CreateNewBlockWithKey(CReserveKey& reservekey);
-#else
-boost::optional<CScript> GetMinerScriptPubKey();
-CBlockTemplate* CreateNewBlockWithKey();
-#endif
-=======
 CBlockTemplate* CreateNewBlock(const CChainParams& chainparams, const CScript& scriptPubKeyIn);
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
 #ifdef ENABLE_MINING
 /** Modify the extranonce in a block */

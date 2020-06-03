@@ -152,8 +152,6 @@ CWalletTx GetValidSpend(ZCJoinSplit& params,
     CWalletTx wtx {NULL, tx};
     return wtx;
 }
-<<<<<<< HEAD
-=======
 
 // Sapling
 const Consensus::Params& RegtestActivateSapling() {
@@ -209,4 +207,3 @@ CWalletTx GetValidSaplingReceive(const Consensus::Params& consensusParams,
     CWalletTx wtx {NULL, tx};
     return wtx;
 }
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6

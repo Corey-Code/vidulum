@@ -335,8 +335,6 @@ TransactionBuilderResult TransactionBuilder::Build()
 
     return TransactionBuilderResult(CTransaction(mtx));
 }
-<<<<<<< HEAD
-=======
 
 void TransactionBuilder::CreateJSDescriptions()
 {
@@ -623,4 +621,3 @@ void TransactionBuilder::CreateJSDescription(
 
     // TODO: Sprout payment disclosure
 }
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6

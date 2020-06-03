@@ -3903,8 +3903,6 @@ UniValue z_sendmany(const UniValue& params, bool fHelp)
     return operationId;
 }
 
-<<<<<<< HEAD
-=======
 UniValue z_setmigration(const UniValue& params, bool fHelp) {
     if (!EnsureWalletIsAvailable(fHelp))
         return NullUniValue;
@@ -4030,7 +4028,6 @@ UniValue z_getmigrationstatus(const UniValue& params, bool fHelp) {
     migrationStatus.push_back(Pair("migration_txids", migrationTxids));
     return migrationStatus;
 }
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
 /**
 When estimating the number of coinbase utxos we can shield in a single transaction:
@@ -4293,19 +4290,12 @@ UniValue z_mergetoaddress(const UniValue& params, bool fHelp)
             "\nArguments:\n"
             "1. fromaddresses         (string, required) A JSON array with addresses.\n"
             "                         The following special strings are accepted inside the array:\n"
-<<<<<<< HEAD
-            "                             - \"ANY_TADDR\":   Merge UTXOs from any t-addrs belonging to the wallet.\n"
-            "                             - \"ANY_SPROUT\":  Merge notes from any Sprout z-addrs belonging to the wallet.\n"
-            "                             - \"ANY_SAPLING\": Merge notes from any Sapling z-addrs belonging to the wallet.\n"
-            "                         If a special string is given, any given addresses of that type will be ignored.\n"
-=======
             "                             - \"ANY_TADDR\":   Merge UTXOs from any taddrs belonging to the wallet.\n"
             "                             - \"ANY_SPROUT\":  Merge notes from any Sprout zaddrs belonging to the wallet.\n"
             "                             - \"ANY_SAPLING\": Merge notes from any Sapling zaddrs belonging to the wallet.\n"
             "                         While it is possible to use a variety of different combinations of addresses and the above values,\n"
             "                         it is not possible to send funds from both sprout and sapling addresses simultaneously. If a special\n"
             "                         string is given, any given addresses of that type will be counted as duplicates and cause an error.\n"
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
             "    [\n"
             "      \"address\"          (string) Can be a t-addr or a z-addr\n"
             "      ,...\n"

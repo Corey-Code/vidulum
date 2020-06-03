@@ -1,37 +1,33 @@
 ---
-<<<<<<< HEAD
 name: "vidulum-1.0.13"
-=======
-name: "zcash-2.0.6"
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 enable_cache: true
 distro: "debian"
 suites:
-- "jessie"
-- "stretch"
+  - "jessie"
+  - "stretch"
 architectures:
-- "amd64"
+  - "amd64"
 packages:
-- "autoconf"
-- "automake"
-- "bsdmainutils"
-- "binutils-gold"
-- "ca-certificates"
-- "faketime"
-- "g++-multilib"
-- "git-core"
-- "libc6-dev"
-- "libtool"
-- "m4"
-- "ncurses-dev"
-- "pkg-config"
-- "python"
-- "unzip"
-- "wget"
-- "zlib1g-dev"
+  - "autoconf"
+  - "automake"
+  - "bsdmainutils"
+  - "binutils-gold"
+  - "ca-certificates"
+  - "faketime"
+  - "g++-multilib"
+  - "git-core"
+  - "libc6-dev"
+  - "libtool"
+  - "m4"
+  - "ncurses-dev"
+  - "pkg-config"
+  - "python"
+  - "unzip"
+  - "wget"
+  - "zlib1g-dev"
 remotes:
-- "url": "https://github.com/vidulum/vidulum.git"
-  "dir": "vidulum"
+  - "url": "https://github.com/vidulum/vidulum.git"
+    "dir": "vidulum"
 files: []
 script: |
   WRAP_DIR=$HOME/wrapped

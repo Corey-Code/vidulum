@@ -256,13 +256,8 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams);
  *
  * @param[out]   setFilesToPrune   The set of file indices that can be unlinked will be returned
  */
-<<<<<<< HEAD
 void FindFilesToPrune(std::set<int>& setFilesToPrune);
 int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount = 0);
-=======
-void FindFilesToPrune(std::set<int>& setFilesToPrune, uint64_t nPruneAfterHeight);
-int64_t GetZeronodePayment(int nHeight, int64_t blockValue, int nZeronodeCount = 0);
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 /**
  *  Actually unlink the specified files
  */
@@ -301,7 +296,6 @@ struct CNodeStateStats {
     std::vector<int> vHeightInFlight;
 };
 
-<<<<<<< HEAD
 struct CTimestampIndexIteratorKey {
     unsigned int timestamp;
 
@@ -658,8 +652,6 @@ struct CDiskTxPos : public CDiskBlockPos
         nTxOffset = 0;
     }
 };
-=======
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 
 
 CAmount GetMinRelayFee(const CTransaction& tx, unsigned int nBytes, bool fAllowFree);
@@ -823,7 +815,6 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
 
 /** Functions for validating blocks and updating the block tree */
 
-<<<<<<< HEAD
 /** Undo the effects of this block (with given index) on the UTXO set represented by coins.
  *  In case pfClean is provided, operation will try to be tolerant about errors, and *pfClean
  *  will be true if no problems were found. Otherwise, the return value will be false in case
@@ -836,8 +827,6 @@ bool DisconnectBlocksAndReprocess(int blocks);
 /** Apply the effects of this block (with given index) on the UTXO set represented by coins */
 bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pindex, CCoinsViewCache& coins, bool fJustCheck = false);
 
-=======
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 /** Context-independent validity checks */
 bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state,
     const CChainParams& chainparams,
@@ -910,13 +899,9 @@ extern CSporkDB* pSporkDB;
  */
 int GetSpendHeight(const CCoinsViewCache& inputs);
 
-<<<<<<< HEAD
-/** Return a CMutableTransaction with contextual default values based on set of consensus rules at height */
-=======
 uint64_t CalculateCurrentUsage();
 
 /** Return a CMutableTransaction with contextual default values based on set of consensus rules at nHeight, and the default expiry delta. */
->>>>>>> f8c7d103a... Pull up to Zcash 2.0.6
 CMutableTransaction CreateNewContextualCMutableTransaction(const Consensus::Params& consensusParams, int nHeight);
 
 /** Return a CMutableTransaction with contextual default values based on set of consensus rules at nHeight, and given expiry delta. */

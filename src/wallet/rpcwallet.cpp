@@ -2580,8 +2580,8 @@ UniValue z_listunspent(const UniValue& params, bool fHelp)
             bool hasSproutSpendingKey = pwalletMain->HaveSproutSpendingKey(boost::get<libzcash::SproutPaymentAddress>(entry.address));
             obj.push_back(Pair("spendable", hasSproutSpendingKey));
             obj.push_back(Pair("address", EncodePaymentAddress(entry.address)));
-            obj.push_back(Pair("amount", ValueFromAmount(CAmount(entry.plaintext.value()))));
-            std::string data(entry.plaintext.memo().begin(), entry.plaintext.memo().end());
+            obj.push_back(Pair("amount", ValueFromAmount(CAmount(entry.note.value()))));
+            std::string data(entry.memo.begin(), entry.memo.end());
             obj.push_back(Pair("memo", HexStr(data)));
             if (hasSproutSpendingKey) {
                 obj.push_back(Pair("change", pwalletMain->IsNoteSproutChange(nullifierSet, entry.address, entry.jsop)));
@@ -3289,7 +3289,7 @@ CAmount getBalanceZaddr(std::string address, int minDepth, bool ignoreUnspendabl
     LOCK2(cs_main, pwalletMain->cs_wallet);
     pwalletMain->GetFilteredNotes(sproutEntries, saplingEntries, address, minDepth, true, ignoreUnspendable);
     for (auto & entry : sproutEntries) {
-        balance += CAmount(entry.plaintext.value());
+        balance += CAmount(entry.note.value());
     }
     for (auto & entry : saplingEntries) {
         balance += CAmount(entry.note.value());
@@ -4423,7 +4423,7 @@ UniValue z_mergetoaddress(const UniValue& params, bool fHelp)
         // Find unspent notes and update estimated size
         for (const SproutNoteEntry& entry : sproutEntries) {
             noteCounter++;
-            CAmount nValue = entry.plaintext.value();
+            CAmount nValue = entry.note.value();
 
             if (!maxedOutNotesFlag) {
                 // If we haven't added any notes yet and the merge is to a
@@ -4438,7 +4438,7 @@ UniValue z_mergetoaddress(const UniValue& params, bool fHelp)
                     auto zaddr = entry.address;
                     SproutSpendingKey zkey;
                     pwalletMain->GetSproutSpendingKey(zaddr, zkey);
-                    sproutNoteInputs.emplace_back(entry.jsop, entry.plaintext.note(zaddr), nValue, zkey);
+                    sproutNoteInputs.emplace_back(entry.jsop, entry.note, nValue, zkey);
                     mergedNoteValue += nValue;
                 }
             }
